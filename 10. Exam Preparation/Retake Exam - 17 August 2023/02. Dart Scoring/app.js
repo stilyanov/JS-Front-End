@@ -9,20 +9,20 @@ function solve() {
 	const sureList = document.getElementById('sure-list');
 	const scoreBoardList = document.getElementById('scoreboard-list');
 
-	const clearButton = document.querySelectorAll('button')[1];
+	const clearButton = document.querySelector('.clear')
 
 	addButton.addEventListener('click', () => {
-
-		if (!playerNameInput.value || !scoreInput.value || !roundInput.value) {
-			return;
-		}
 
 		const playerName = playerNameInput.value;
 		const score = scoreInput.value;
 		const round = roundInput.value;
 
+		if (!playerName || !score || !round) {
+			return;
+		}
+
 		const li = document.createElement('li');
-		li.classList = 'dart-item';
+		li.className = 'dart-item';
 
 		const article = document.createElement('article');
 
@@ -36,11 +36,13 @@ function solve() {
 		paragraphRound.textContent = `Round: ${round}`;
 
 		const editButton = document.createElement('button');
-		editButton.classList = 'btn edit';
+		editButton.classList.add('btn');
+		editButton.classList.add('edit');
 		editButton.textContent = 'edit';
 
 		const okButton = document.createElement('button');
-		okButton.classList = 'btn ok';
+		okButton.classList.add('btn');
+		okButton.classList.add('ok');
 		okButton.textContent = 'ok';
 
 		article.appendChild(paragraphName);
@@ -53,11 +55,11 @@ function solve() {
 
 		sureList.appendChild(li);
 
-		addButton.disabled = true;
-
 		playerNameInput.value = '';
 		scoreInput.value = '';
 		roundInput.value = '';
+
+		addButton.disabled = true;
 
 		editButton.addEventListener('click', () => {
 
@@ -72,21 +74,22 @@ function solve() {
 
 
 		okButton.addEventListener('click', () => {
-			
+			// sureList.removeChild(li);
 			editButton.remove();
 			okButton.remove();
 
-			scoreBoardList.append(li);
+			scoreBoardList.appendChild(li);
 
-			sureList.innerHTML = '';
+			// sureList.innerHTML = '';
 
 			addButton.disabled = false;
+
+		});
+
+		clearButton.addEventListener('click', () => {
+			location.reload();
+
 		});
 
 	});
-
-	clearButton.addEventListener('click', () => {
-		location.reload();
-	});
-
 }
